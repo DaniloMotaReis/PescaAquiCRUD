@@ -49,10 +49,13 @@ public abstract class Conta {
 	}
 
 	public void imprimirConta() {
-		System.out.println("Nome: "+ getNome());
 		System.out.println("E-Mail: "+ getEmail());
 		System.out.println("Endereço: "+ getEndereco());
 		System.out.println("Telefone: "+ getTelefone());		
+	}
+	
+	public void imprimirTipo() {
+		System.out.println("Tipo de conta: "+ getTipoConta());
 	}
 
 }

@@ -44,6 +44,7 @@ public class ContaPesqueiro extends Conta{
 	}
 
 	public void imprimirConta() {
+		System.out.println("\nNome do Pesqueiro: "+ getNome());
 		super.imprimirConta();
 		System.out.println("Quantidede de Lagos: "+ getQuantide());
 		System.out.println("Tipos de Peixes: "+ getTipoPeixe());
@@ -51,6 +52,10 @@ public class ContaPesqueiro extends Conta{
 		System.out.println("CPNJ: "+ getCnpj());
 	}
 	
-	
+	public void imprimirTipo() {
+		super.imprimirTipo();
+		System.out.println("Nome do Pesqueiro: "+ getNome());
+		System.out.println("\n");
+	}
 
 }
