@@ -7,6 +7,10 @@ public class ContaPesqueiro extends Conta{
 	private int quantide;
 	private String tipoPeixe;
 	
+	public ContaPesqueiro() {
+		setTipoConta("Pesqueiro");
+	}
+	
 	public String getNomePro() {
 		return nomePro;
 	}

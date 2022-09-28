@@ -38,11 +38,24 @@ public class Principal {
 					pesqueiro.setCnpj(entrada.nextLong());
 					dados.adicionarBanco(pesqueiro);
 					break;
+					
+				case 2:
+			    	pescador = new ContaPescador();
+			    	System.out.println("\nInforme o nome do Pesqueiro: ");
+					pescador.setNome(entrada.next());
+					System.out.println("Informe o E-mail de Contato: ");
+					pescador.setEmail(entrada.next());
+					System.out.println("Informe o Endereço do Local: ");
+					pescador.setEndereco(entrada.next());
+					System.out.println("Informe O Telefone de Contato: ");
+					pescador.setTelefone(entrada.nextLong());
+					System.out.println("Informe o CPF: ");
+					pescador.setCpf(entrada.nextLong());
+					dados.adicionarBanco(pescador);
 				}
 				break;
 				
-			    case 2:
-			    	pescador = new ContaPescador();
+			    
 				
 			case 3:
 				dados.mostrarContas();

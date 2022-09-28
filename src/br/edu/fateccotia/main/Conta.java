@@ -2,11 +2,20 @@ package br.edu.fateccotia.main;
 
 public abstract class Conta {
 	
+	private String tipoConta;
 	private String nome;
 	private String email;
 	private String endereco;
 	private Long telefone;
 	
+	public String getTipoConta() {
+		return tipoConta;
+	}
+
+	public void setTipoConta(String tipoConta) {
+		this.tipoConta = tipoConta;
+	}
+
 	public String getNome() {
 		return nome;
 	}
