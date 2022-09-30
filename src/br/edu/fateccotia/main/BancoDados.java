@@ -2,24 +2,21 @@ package br.edu.fateccotia.main;
 
 public class BancoDados {
 	
-	private Conta [] banco = new Conta[10];
-	private Reservas [] reserva = new Reservas[10];
-	private int total=0, totalReser = 0;
+	private Conta[] banco = new Conta[10];
+	private Reservas[] reserva = new Reservas[10];
+	int temp[];
+	private int total=0, totalReser=0, totalTemp=0;
 	
-	public Conta[] getBanco() {
-		return banco;
+	public Conta getBanco(int i) {
+		return banco[i];
 	}
 
-	public void setBanco(Conta[] banco) {
-		this.banco = banco;
+	public Reservas getReserva(int i) {
+		return reserva[i];
 	}
 
-	public Reservas[] getReserva() {
-		return reserva;
-	}
-
-	public void setReserva(Reservas[] reserva) {
-		this.reserva = reserva;
+	public int getTotal() {
+		return total;
 	}
 
 	public void adicionarBanco(Conta novaConta) {
@@ -32,60 +29,132 @@ public class BancoDados {
 		}
 	}
 	
+	public void adicionarTemp(int num) {
+			temp[totalTemp]= num;
+			totalTemp++;
+	}
+	
 	public void adicionarReserva(Reservas novaReserva) {
-		if (total<10) {
-			reserva[total]= novaReserva;
-			total++;
+		if (totalReser<10) {
+			reserva[totalReser]= novaReserva;
+			totalReser++;
 		}
 		else {
 			System.out.println("As reservas estão cheias.");
 		}
 	}
 	
-	public void mostrarContas() {
-		for(int i=0; i<total; i++) {
-			banco[i].imprimirConta();
+	public Boolean verificarDados(int num) {
+		Boolean va = false;
+		for(int i=0; i<totalTemp; i++) {
+			if(temp[i] == num) {
+				va = true;
+			}
 		}
+		return va;
+		
+	}
+	
+	public void mostrarContas() {
+		if( total > 0) {
+			for(int i=0; i<total; i++) {
+				banco[i].imprimirConta();
+			}
+		}
+		else {
+			System.out.println("Não existem contas cadastradas.\n");
+		}
+		
 	}
 	
 	public void mostrarTipos(Boolean pes1, Boolean pes2) {
-		for(int i=0; i<total; i++) {
-			if(pes1 == true) {
-				if(banco[i].getTipoConta() == "Pesqueiro") {
-					System.out.println(i+":");
-					banco[i].imprimirTipo();
+		temp = new int[10];
+		totalTemp = 0;
+		if( total > 0) {
+			for(int i=0; i<total; i++) {
+				if(pes1 == true) {
+					if(banco[i].getTipoConta() == "Pesqueiro") {
+						System.out.println(i+":");
+						banco[i].imprimirTipo();
+						adicionarTemp(i);
+					}
 				}
-			}
-			if(pes2 == true) {
-				System.out.println(i+":");
-				if(banco[i].getTipoConta() == "Pescador") {
-					banco[i].imprimirTipo();
+				if(pes2 == true) {
+					if(banco[i].getTipoConta() == "Pescador") {
+						System.out.println(i+":");
+						banco[i].imprimirTipo();
+						adicionarTemp(i);
+					}
 				}
+				
 			}
-			
 		}
+		else {
+			System.out.println("Não existem contas cadastradas.");
+		}
+		
+		
 	}
 	
 	public void mostrarReservas(Boolean pes1, Boolean pes2,int conta) {
-		for(int i=0; i<total; i++) {
-			if(pes1 == true) {
-				if(banco[conta].getNome() == reserva[i].getNomePesqueiro()) {
+		temp = new int[10];
+		totalTemp = 0;
+		if(totalReser > 0) {
+			for(int i=0; i<totalReser; i++) {
+				if(pes1 == true) {
+					if(banco[conta].getNome() == reserva[i].getNomePesqueiro()) {
+						System.out.println(i+":");
+						reserva[i].imprimirReservas();
+						adicionarTemp(i);
+					}
+				} 
+				else if(pes2 == true) {
+					if(banco[conta].getNome() == reserva[i].getNomePescador()) {
+						System.out.println(i+":");
+						reserva[i].imprimirReservas();
+						adicionarTemp(i);
+					}
+				}
+				else {
 					System.out.println(i+":");
 					reserva[i].imprimirReservas();
 				}
 			}
-			if(pes2 == true) {
-				if(banco[conta].getNome() == reserva[i].getNomePescador()) {
-					System.out.println(i+":");
-					banco[i].imprimirTipo();
+			
+		}
+		else {
+			System.out.println("Não existem reservas feitas.\n");
+		}
+		
+	}
+	
+	public void cancelarReservas(int num) {
+		if(totalReser > 0) {
+			if(reserva[num].getRePes() == false && reserva[num].getRePes() == false) {
+				for(int i=0; i<totalReser;i++) {
+					if(reserva[i] == reserva[num]) {
+						for(int j = i; j < totalReser - 1;j++) {
+							reserva[j] = reserva[j+1];
+						}
+						System.out.println("Reserva "+ num + " foi cancelada e deletada.");
+						totalReser--;
+					}
 				}
 			}
 		}
+		
 	}
 	
-	
-	public void removerConta() {
-		
+	public void removerContas(int num) {
+		for(int i=0; i<total;i++) {
+			if(banco[i] == banco[num]) {
+				for(int j = i; j < total - 1;j++) {
+					banco[j] = banco[j+1];
+				}
+				System.out.println("A conta "+ num + " foi deletada.");
+				total--;
+			}
+		}
 	}
 	
 	public void AtualizarConta() {

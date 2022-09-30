@@ -1,13 +1,35 @@
 package br.edu.fateccotia.main;
 
-import java.sql.Date;
-
 public class Reservas {
 	
+	private Boolean rePes, reCli;
 	private String nomePesqueiro;
 	private String nomePescador;
-	private Date data;
+	private int data;
 	
+	public Reservas() {
+		rePes = true;
+		reCli = true;
+	}
+	
+	public Boolean getRePes() {
+		return rePes;
+	}
+
+
+	public void setRePes(Boolean rePes) {
+		this.rePes = rePes;
+	}
+
+
+	public Boolean getReCli() {
+		return reCli;
+	}
+
+
+	public void setReCli(Boolean reCli) {
+		this.reCli = reCli;
+	}
 
 	public String getNomePesqueiro() {
 		return nomePesqueiro;
@@ -29,23 +51,29 @@ public class Reservas {
 	}
 
 
-	public Date getData() {
+	public int getData() {
 		return data;
 	}
 
 
-	public void setData(Date data) {
+	public void setData(int data) {
 		this.data = data;
 	}
 
-
-	public void criarReserva(int conta) {
-		
-		
-	}
 	public void imprimirReservas() {
 		System.out.println("Nome do Pesqueiro: "+ getNomePesqueiro());
 		System.out.println("Nome do pescador: "+ getNomePescador());
 		System.out.println("Data de Reserva: "+ getData());
+		System.out.println("Reserva Status: ");
+		if(this.reCli == false) {
+			System.out.println("Reserva cancelada pelo Cliente.\n");
+		} 
+		else if(this.rePes == false) {
+			System.out.println("Reserva cancelada pelo Pesqueiro.\n");
+		} 
+		else {
+			System.out.println("Ok\n");
+		}
 	}
+	
 }

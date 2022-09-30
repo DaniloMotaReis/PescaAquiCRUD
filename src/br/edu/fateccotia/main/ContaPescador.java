@@ -17,15 +17,14 @@ public class ContaPescador extends Conta{
 	}
 
 	public void imprimirConta() {
-		System.out.println("\nNome: "+ getNome());
+		System.out.println("Nome: "+ getNome());
 		super.imprimirConta();
-		System.out.println("CPF: "+ this.cpf);
+		System.out.println("CPF: "+ getCpf() + "\n");
 	}
 	
 	public void imprimirTipo() {
 		super.imprimirTipo();
-		System.out.println("Nome: "+ getNome());
-		System.out.println("\n");
+		System.out.println("Nome: "+ getNome() +"\n");
 	}
 
 }
