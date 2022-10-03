@@ -6,7 +6,8 @@ public class Principal {
 
 	public static void main(String[] args) {
 		
-		int opcao, conta;
+		int opcao, conta, reserva;
+		Boolean del = false;
 		Long tempL;
 		String temp;
 		Scanner entradaNum = new Scanner(System.in);
@@ -78,14 +79,13 @@ public class Principal {
 						case 1:
 							
 							if (dados.getTotalPes() > 0) {
-								
+								System.out.println("Escolha uma conta para entrar: \n");
 								dados.mostrarTipos(true, false);
-								System.out.println("Escolha uma conta para entrar: ");
 								conta = entradaNum.nextInt();
 								
 								if(dados.verificarDados(false, conta) == true) {
 									
-									System.out.println("Digite 1: Mostrar Reservas | 2: Cancelar Reservas | 3: Atualizar Dados | 0: Voltar\n");
+									System.out.println("Digite 1: Mostrar Reservas | 2: Cancelar Reservas | 3: Atualizar Dados | 4: Deletar Conta | 0: Voltar\n");
 									opcao = entradaNum.nextInt();
 									
 									while(opcao != 0) {
@@ -95,14 +95,15 @@ public class Principal {
 											break;
 											
 										case 2:
+											System.out.println("Escolha uma reserva para cancelar: \n");
 											if(dados.verificarDados(true, conta)) {
 												dados.mostrarReservas(true, false, conta);
-												conta = entradaNum.nextInt();
+												reserva = entradaNum.nextInt();
 												
-												if(dados.verificarDados(false ,conta) == true) {
-													dados.getReserva(conta).setRePes(false);
-													dados.cancelarReservas(conta);
-													break;
+												if(dados.verificarDados(false ,reserva) == true) {
+													dados.getReserva(reserva).setRePes(false);
+													dados.cancelarReservas(reserva);
+													
 												}
 												else {
 													System.out.println("Reserva invalida!\n");
@@ -111,6 +112,7 @@ public class Principal {
 											else {
 												System.out.println("Esse Pesqueiro não possui reservas.\n");
 											}
+											break;
 										
 										case 3:
 											System.out.println("Digite 1: Nome do Pesqueiro | 2: E-mail | 3: Endereço | 4: Telefone");
@@ -154,12 +156,32 @@ public class Principal {
 											}
 											break;
 											
+										case 4:
+											System.out.println("Realmente deseja deletar está conta?");
+											System.out.println("1: Sim | 0: Não");
+											opcao = entradaNum.nextInt();
+											if(opcao == 1) {
+												dados.removerContas(true, false, conta);
+												del = true;
+												break;
+											}
+											else {
+												System.out.println("A conta não foi deletada.\n");
+											}
+											break;
+											
 										default:
 											System.out.println("Opção invalida!\n");
 										}
 										
-										System.out.println("Digite 1: Mostrar Reservas | 2: Cancelar Reservas | 3: Atualizar Dados | 0: Voltar\n");
-										opcao = entradaNum.nextInt();
+										if(del == false) {
+											System.out.println("Digite 1: Mostrar Reservas | 2: Cancelar Reservas | 3: Atualizar Dados | 4: Deletar Conta | 0: Voltar\n");
+											opcao = entradaNum.nextInt();
+										}
+										else {
+											del = false;
+											break;
+										}
 									}
 								}
 								else {
@@ -183,7 +205,7 @@ public class Principal {
 								
 								if(dados.verificarDados(false, conta) == true) {
 									
-									System.out.println("Digite 1: Criar Reservas | 2: Mostrar Reservas Feitas | 3: Cancelar Reservas | 4: Atualizar Dados | 0: Voltar");
+									System.out.println("Digite 1: Criar Reservas | 2: Mostrar Reservas Feitas | 3: Cancelar Reservas | 4: Atualizar Dados | 5: Deletar Conta | 0: Voltar");
 									opcao = entradaNum.nextInt();
 									
 									while(opcao != 0) {
@@ -191,15 +213,14 @@ public class Principal {
 										case 1:
 											if(dados.getTotalPes() > 0) {
 												
-												System.out.println("Escolha qual Pesqueiro deseja realizar a reserva: ");
-												System.out.println("\nDigite: ");
+												System.out.println("Escolha qual Pesqueiro deseja realizar a reserva: \n");
 												dados.mostrarTipos(true, false);
-												conta = entradaNum.nextInt();
+												reserva = entradaNum.nextInt();
 												
-												if(dados.verificarDados(false, conta) == true) {
+												if(dados.verificarDados(false, reserva) == true) {
 													reservas = new Reservas();
 													reservas.setNomePescador(dados.getBancoCli(conta).getNome());
-													reservas.setNomePesqueiro(dados.getBancoPes(conta).getNome());
+													reservas.setNomePesqueiro(dados.getBancoPes(reserva).getNome());
 													System.out.println("Digite a data de Reserva: ");
 													reservas.setData(Integer.parseInt(entrada.nextLine()));
 													dados.adicionarReserva(reservas);
@@ -214,16 +235,18 @@ public class Principal {
 											break;
 											
 										case 2:
+											System.out.println("Reservas: \n");
 											dados.mostrarReservas(false, true, conta);
 											break;
 											
 										case 3:
+											System.out.println("Escolha uma reserva para cancelar: \n");
 											if(dados.verificarDados(true, conta)) {
 												dados.mostrarReservas(false, true, conta);
-												conta = entradaNum.nextInt();
-												if(dados.verificarDados(false, conta) == true) {
-													dados.getReserva(conta).setReCli(false);
-													dados.cancelarReservas(conta);
+												reserva = entradaNum.nextInt();
+												if(dados.verificarDados(false, reserva) == true) {
+													dados.getReserva(reserva).setReCli(false);
+													dados.cancelarReservas(reserva);
 												}
 												else {
 													System.out.println("Reserva invalida!\n");
@@ -274,13 +297,33 @@ public class Principal {
 												break;
 											}
 											break;
+										
+										case 5:
+											System.out.println("Realmente deseja deletar está conta?");
+											System.out.println("1: Sim | 0: Não");
+											opcao = entradaNum.nextInt();
+											if(opcao == 1) {
+												dados.removerContas(false, true, conta);
+												del = true;
+												break;
+											}
+											else {
+												System.out.println("A conta não foi deletada.\n");
+											}
+											break;
 											
 										default:
 											System.out.println("Opção invalida!\n");
 										}
 										
-										System.out.println("Digite 1: Criar Reservas | 2: Mostrar Reservas Feitas | 3: Cancelar Reservas | 4: Atualizar Dados | 0: Voltar");
-										opcao = entradaNum.nextInt();
+										if(del == false) {
+											System.out.println("Digite 1: Criar Reservas | 2: Mostrar Reservas Feitas | 3: Cancelar Reservas | 4: Atualizar Dados | 5: Deletar Conta | 0: Voltar");
+											opcao = entradaNum.nextInt();
+										}
+										else{
+											del = false;
+											break;
+										}
 									}
 								}
 								else {

@@ -171,7 +171,7 @@ public class BancoDados {
 						for(int j = i; j < totalReser - 1;j++) {
 							reserva[j] = reserva[j+1];
 						}
-						System.out.println("Reserva "+ num + " foi cancelada e deletada.");
+						System.out.println("Reserva "+ num + " foi cancelada e deletada.\n");
 						totalReser--;
 					}
 				}
@@ -186,7 +186,7 @@ public class BancoDados {
 					for(int j = i; j < totalPes - 1;j++) {
 						bancoPes[j] = bancoPes[j+1];
 					}
-					System.out.println("A conta Pesqueiro "+ num + " foi deletada.");
+					System.out.println("A conta Pesqueiro "+ num + " foi deletada.\n");
 					totalPes--;
 				}
 			}
@@ -197,7 +197,7 @@ public class BancoDados {
 					for(int j = i; j < totalCli - 1;j++) {
 						bancoCli[j] = bancoCli[j+1];
 					}
-					System.out.println("A conta Pescador"+ num + " foi deletada.");
+					System.out.println("A conta Pescador "+ num + " foi deletada.\n");
 					totalCli--;
 				}
 			}
